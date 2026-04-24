@@ -1,0 +1,30 @@
+<Page
+    x:Class="RotationTracker.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:RotationTracker"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d"
+    Width="640"
+    Height="320">
+    <Grid Padding="24">
+        <StackPanel Spacing="8">
+            <TextBlock Text="Rotation Tracker"
+                       FontSize="28"
+                       FontWeight="Bold"/>
+            <TextBlock Text="Skill rotation tracker widget for Xbox Game Bar."
+                       Opacity="0.8"/>
+            <TextBlock Text="1. Press Win + G to open Xbox Game Bar."
+                       Margin="0,16,0,0"/>
+            <TextBlock Text="2. Open the Widget Menu and pick 'Rotation Tracker'."/>
+            <TextBlock Text="3. Click the star to pin it so it opens with Game Bar next time."/>
+            <TextBlock Text="4. Click the gear icon on the widget to edit your rotations."/>
+            <TextBlock Text="You can close this window — the widget lives inside Game Bar."
+                       Margin="0,16,0,0"
+                       FontStyle="Italic"
+                       Opacity="0.7"/>
+        </StackPanel>
+    </Grid>
+</Page>

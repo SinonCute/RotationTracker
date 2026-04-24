@@ -1,0 +1,46 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36518.9
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RotationTracker", "RotationTracker\RotationTracker.csproj", "{4BDA5B7A-1D7A-4E6F-9C8B-21D3A4A0B111}"
+EndProject
+Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "RotationTracker.Package", "RotationTracker.Package\RotationTracker.Package.wapproj", "{6E9FF8C2-7D4A-4E3B-9A5D-22D3B4A0B222}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RotationTracker.Backend", "RotationTracker.Backend\RotationTracker.Backend.csproj", "{9E3D9C4B-8F6E-4B2E-9F6D-33E4C5A7B333}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameBarInputBridge.Shared", "GameBarInputBridge.Shared\GameBarInputBridge.Shared.csproj", "{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4BDA5B7A-1D7A-4E6F-9C8B-21D3A4A0B111}.Debug|x64.ActiveCfg = Debug|x64
+		{4BDA5B7A-1D7A-4E6F-9C8B-21D3A4A0B111}.Debug|x64.Build.0 = Debug|x64
+		{4BDA5B7A-1D7A-4E6F-9C8B-21D3A4A0B111}.Debug|x64.Deploy.0 = Debug|x64
+		{4BDA5B7A-1D7A-4E6F-9C8B-21D3A4A0B111}.Release|x64.ActiveCfg = Release|x64
+		{4BDA5B7A-1D7A-4E6F-9C8B-21D3A4A0B111}.Release|x64.Build.0 = Release|x64
+		{6E9FF8C2-7D4A-4E3B-9A5D-22D3B4A0B222}.Debug|x64.ActiveCfg = Debug|x64
+		{6E9FF8C2-7D4A-4E3B-9A5D-22D3B4A0B222}.Debug|x64.Build.0 = Debug|x64
+		{6E9FF8C2-7D4A-4E3B-9A5D-22D3B4A0B222}.Debug|x64.Deploy.0 = Debug|x64
+		{6E9FF8C2-7D4A-4E3B-9A5D-22D3B4A0B222}.Release|x64.ActiveCfg = Release|x64
+		{6E9FF8C2-7D4A-4E3B-9A5D-22D3B4A0B222}.Release|x64.Build.0 = Release|x64
+		{6E9FF8C2-7D4A-4E3B-9A5D-22D3B4A0B222}.Release|x64.Deploy.0 = Release|x64
+		{9E3D9C4B-8F6E-4B2E-9F6D-33E4C5A7B333}.Debug|x64.ActiveCfg = Debug|x64
+		{9E3D9C4B-8F6E-4B2E-9F6D-33E4C5A7B333}.Debug|x64.Build.0 = Debug|x64
+		{9E3D9C4B-8F6E-4B2E-9F6D-33E4C5A7B333}.Release|x64.ActiveCfg = Release|x64
+		{9E3D9C4B-8F6E-4B2E-9F6D-33E4C5A7B333}.Release|x64.Build.0 = Release|x64
+		{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}.Debug|x64.Build.0 = Debug|Any CPU
+		{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}.Release|x64.ActiveCfg = Release|Any CPU
+		{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}.Release|x64.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7A1B8C3D-4E5F-6789-ABCD-EF0123456789}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,525 @@
+{
+  "chr_0002_endminm": {
+    "name": "Endministrator",
+    "slug": "endministrator",
+    "avatar": "https://endfieldtools.dev/assets/images/endfield/charicon/icon_chr_0002_endminm.png",
+    "skills": {
+      "Skill": {
+        "icon_attack_sword": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_attack_sword.png"
+      },
+      "Combo": {
+        "icon_combo_skill_endmin_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_combo_skill_endmin_01.png"
+      },
+      "Normal": {
+        "icon_skill_endmin_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_skill_endmin_01.png"
+      },
+      "Ultimate": {
+        "icon_ultimate_skill_endmin_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_ultimate_skill_endmin_01.png"
+      }
+    }
+  },
+  "chr_0003_endminf": {
+    "name": "Endministrator",
+    "slug": "endministrator",
+    "avatar": "https://endfieldtools.dev/assets/images/endfield/charicon/icon_chr_0003_endminf.png",
+    "skills": {
+      "Skill": {
+        "icon_attack_sword": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_attack_sword.png"
+      },
+      "Combo": {
+        "icon_combo_skill_endmin_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_combo_skill_endmin_01.png"
+      },
+      "Normal": {
+        "icon_skill_endmin_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_skill_endmin_01.png"
+      },
+      "Ultimate": {
+        "icon_ultimate_skill_endmin_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_ultimate_skill_endmin_01.png"
+      }
+    }
+  },
+  "chr_0004_pelica": {
+    "name": "Perlica",
+    "slug": "perlica",
+    "avatar": "https://endfieldtools.dev/assets/images/endfield/charicon/icon_chr_0004_pelica.png",
+    "skills": {
+      "Skill": {
+        "icon_attack_funnel": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_attack_funnel.png"
+      },
+      "Combo": {
+        "icon_combo_skill_pelica_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_combo_skill_pelica_01.png"
+      },
+      "Normal": {
+        "icon_skill_pelica_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_skill_pelica_01.png"
+      },
+      "Ultimate": {
+        "icon_ultimate_skill_pelica_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_ultimate_skill_pelica_01.png"
+      }
+    }
+  },
+  "chr_0005_chen": {
+    "name": "Chen Qianyu",
+    "slug": "chen-qianyu",
+    "avatar": "https://endfieldtools.dev/assets/images/endfield/charicon/icon_chr_0005_chen.png",
+    "skills": {
+      "Combo": {
+        "icon_combo_skill_chen_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_combo_skill_chen_01.png"
+      },
+      "Skill": {
+        "icon_attack_sword": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_attack_sword.png"
+      },
+      "Normal": {
+        "icon_skill_chen_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_skill_chen_01.png"
+      },
+      "Ultimate": {
+        "icon_ultimate_skill_chen_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_ultimate_skill_chen_01.png"
+      }
+    }
+  },
+  "chr_0006_wolfgd": {
+    "name": "Wulfgard",
+    "slug": "wulfgard",
+    "avatar": "https://endfieldtools.dev/assets/images/endfield/charicon/icon_chr_0006_wolfgd.png",
+    "skills": {
+      "Combo": {
+        "icon_combo_skill_wolfgd_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_combo_skill_wolfgd_01.png"
+      },
+      "Ultimate": {
+        "icon_ultimate_skill_wolfgd_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_ultimate_skill_wolfgd_01.png"
+      },
+      "Skill": {
+        "icon_attack_pistol": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_attack_pistol.png"
+      },
+      "Normal": {
+        "icon_skill_wolfgd_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_skill_wolfgd_01.png"
+      }
+    }
+  },
+  "chr_0007_ikut": {
+    "name": "Arclight",
+    "slug": "arclight",
+    "avatar": "https://endfieldtools.dev/assets/images/endfield/charicon/icon_chr_0007_ikut.png",
+    "skills": {
+      "Skill": {
+        "icon_attack_sword": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_attack_sword.png"
+      },
+      "Combo": {
+        "icon_combo_skill_ikut_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_combo_skill_ikut_01.png"
+      },
+      "Normal": {
+        "icon_skill_ikut_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_skill_ikut_01.png"
+      },
+      "Ultimate": {
+        "icon_ultimate_skill_ikut_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_ultimate_skill_ikut_01.png"
+      }
+    }
+  },
+  "chr_0009_azrila": {
+    "name": "Ember",
+    "slug": "ember",
+    "avatar": "https://endfieldtools.dev/assets/images/endfield/charicon/icon_chr_0009_azrila.png",
+    "skills": {
+      "Skill": {
+        "icon_attack_claym": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_attack_claym.png"
+      },
+      "Combo": {
+        "icon_combo_skill_azrila_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_combo_skill_azrila_01.png"
+      },
+      "Normal": {
+        "icon_skill_azrila_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_skill_azrila_01.png"
+      },
+      "Ultimate": {
+        "icon_ultimate_skill_azrila_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_ultimate_skill_azrila_01.png"
+      }
+    }
+  },
+  "chr_0011_seraph": {
+    "name": "Xaihi",
+    "slug": "xaihi",
+    "avatar": "https://endfieldtools.dev/assets/images/endfield/charicon/icon_chr_0011_seraph.png",
+    "skills": {
+      "Skill": {
+        "icon_attack_funnel": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_attack_funnel.png"
+      },
+      "Combo": {
+        "icon_combo_skill_seraph_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_combo_skill_seraph_01.png"
+      },
+      "Normal": {
+        "icon_skill_seraph_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_skill_seraph_01.png"
+      },
+      "Ultimate": {
+        "icon_ultimate_skill_seraph_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_ultimate_skill_seraph_01.png"
+      }
+    }
+  },
+  "chr_0012_avywen": {
+    "name": "Avywenna",
+    "slug": "avywenna",
+    "avatar": "https://endfieldtools.dev/assets/images/endfield/charicon/icon_chr_0012_avywen.png",
+    "skills": {
+      "Skill": {
+        "icon_attack_lance": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_attack_lance.png"
+      },
+      "Ultimate": {
+        "icon_ultimate_skill_avywen_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_ultimate_skill_avywen_01.png"
+      },
+      "Combo": {
+        "icon_combo_skill_avywen_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_combo_skill_avywen_01.png"
+      },
+      "Normal": {
+        "icon_skill_avywen_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_skill_avywen_01.png"
+      }
+    }
+  },
+  "chr_0013_aglina": {
+    "name": "Gilberta",
+    "slug": "gilberta",
+    "avatar": "https://endfieldtools.dev/assets/images/endfield/charicon/icon_chr_0013_aglina.png",
+    "skills": {
+      "Skill": {
+        "icon_attack_funnel": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_attack_funnel.png"
+      },
+      "Combo": {
+        "icon_combo_skill_aglina_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_combo_skill_aglina_01.png"
+      },
+      "Normal": {
+        "icon_skill_aglina_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_skill_aglina_01.png"
+      },
+      "Ultimate": {
+        "icon_ultimate_skill_aglina_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_ultimate_skill_aglina_01.png"
+      }
+    }
+  },
+  "chr_0014_aurora": {
+    "name": "Snowshine",
+    "slug": "snowshine",
+    "avatar": "https://endfieldtools.dev/assets/images/endfield/charicon/icon_chr_0014_aurora.png",
+    "skills": {
+      "Ultimate": {
+        "icon_ultimate_skill_aurora_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_ultimate_skill_aurora_01.png"
+      },
+      "Skill": {
+        "icon_attack_claym": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_attack_claym.png"
+      },
+      "Combo": {
+        "icon_combo_skill_aurora_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_combo_skill_aurora_01.png"
+      },
+      "Normal": {
+        "icon_skill_aurora_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_skill_aurora_01.png"
+      }
+    }
+  },
+  "chr_0015_lifeng": {
+    "name": "Lifeng",
+    "slug": "lifeng",
+    "avatar": "https://endfieldtools.dev/assets/images/endfield/charicon/icon_chr_0015_lifeng.png",
+    "skills": {
+      "Skill": {
+        "icon_attack_lance": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_attack_lance.png"
+      },
+      "Normal": {
+        "icon_skill_lifeng_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_skill_lifeng_01.png"
+      },
+      "Combo": {
+        "icon_combo_skill_lifeng_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_combo_skill_lifeng_01.png"
+      },
+      "Ultimate": {
+        "icon_ultimate_skill_lifeng_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_ultimate_skill_lifeng_01.png"
+      }
+    }
+  },
+  "chr_0016_laevat": {
+    "name": "Laevatain",
+    "slug": "laevatain",
+    "avatar": "https://endfieldtools.dev/assets/images/endfield/charicon/icon_chr_0016_laevat.png",
+    "skills": {
+      "Skill": {
+        "icon_attack_sword": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_attack_sword.png"
+      },
+      "Combo": {
+        "icon_combo_skill_laevat_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_combo_skill_laevat_01.png"
+      },
+      "Normal": {
+        "icon_skill_laevat_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_skill_laevat_01.png",
+        "icon_skill_laevat_02": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_skill_laevat_02.png"
+      },
+      "Ultimate": {
+        "icon_ultimate_skill_laevat_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_ultimate_skill_laevat_01.png"
+      }
+    }
+  },
+  "chr_0017_yvonne": {
+    "name": "Yvonne",
+    "slug": "yvonne",
+    "avatar": "https://endfieldtools.dev/assets/images/endfield/charicon/icon_chr_0017_yvonne.png",
+    "skills": {
+      "Skill": {
+        "icon_attack_pistol": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_attack_pistol.png",
+        "icon_attack_sword": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_attack_sword.png"
+      },
+      "Combo": {
+        "icon_combo_skill_yvonne_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_combo_skill_yvonne_01.png"
+      },
+      "Normal": {
+        "icon_skill_yvonne_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_skill_yvonne_01.png"
+      },
+      "Passive": {
+        "icon_attack_pistol": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_attack_pistol.png"
+      },
+      "Ultimate": {
+        "icon_ultimate_skill_yvonne_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_ultimate_skill_yvonne_01.png"
+      }
+    }
+  },
+  "chr_0018_dapan": {
+    "name": "Da Pan",
+    "slug": "da-pan",
+    "avatar": "https://endfieldtools.dev/assets/images/endfield/charicon/icon_chr_0018_dapan.png",
+    "skills": {
+      "Skill": {
+        "icon_attack_claym": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_attack_claym.png"
+      },
+      "Ultimate": {
+        "icon_ultimate_skill_dapan_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_ultimate_skill_dapan_01.png"
+      },
+      "Combo": {
+        "icon_combo_skill_dapan_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_combo_skill_dapan_01.png"
+      },
+      "Normal": {
+        "icon_skill_dapan_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_skill_dapan_01.png"
+      }
+    }
+  },
+  "chr_0019_karin": {
+    "name": "Akekuri",
+    "slug": "akekuri",
+    "avatar": "https://endfieldtools.dev/assets/images/endfield/charicon/icon_chr_0019_karin.png",
+    "skills": {
+      "Skill": {
+        "icon_attack_sword": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_attack_sword.png"
+      },
+      "Combo": {
+        "icon_combo_skill_karin_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_combo_skill_karin_01.png"
+      },
+      "Normal": {
+        "icon_skill_karin_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_skill_karin_01.png"
+      },
+      "Ultimate": {
+        "icon_ultimate_skill_karin_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_ultimate_skill_karin_01.png"
+      }
+    }
+  },
+  "chr_0020_meurs": {
+    "name": "Catcher",
+    "slug": "catcher",
+    "avatar": "https://endfieldtools.dev/assets/images/endfield/charicon/icon_chr_0020_meurs.png",
+    "skills": {
+      "Skill": {
+        "icon_attack_sword": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_attack_sword.png"
+      },
+      "Normal": {
+        "icon_skill_meurs_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_skill_meurs_01.png"
+      },
+      "Ultimate": {
+        "icon_ultimate_skill_meurs_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_ultimate_skill_meurs_01.png"
+      },
+      "Combo": {
+        "icon_combo_skill_meurs_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_combo_skill_meurs_01.png"
+      }
+    }
+  },
+  "chr_0021_whiten": {
+    "name": "Estella",
+    "slug": "estella",
+    "avatar": "https://endfieldtools.dev/assets/images/endfield/charicon/icon_chr_0021_whiten.png",
+    "skills": {
+      "Skill": {
+        "icon_attack_lance": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_attack_lance.png"
+      },
+      "Combo": {
+        "icon_combo_skill_whiten_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_combo_skill_whiten_01.png"
+      },
+      "Ultimate": {
+        "icon_ultimate_skill_whiten_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_ultimate_skill_whiten_01.png"
+      },
+      "Normal": {
+        "icon_skill_whiten_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_skill_whiten_01.png"
+      }
+    }
+  },
+  "chr_0022_bounda": {
+    "name": "Fluorite",
+    "slug": "fluorite",
+    "avatar": "https://endfieldtools.dev/assets/images/endfield/charicon/icon_chr_0022_bounda.png",
+    "skills": {
+      "Skill": {
+        "icon_attack_pistol": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_attack_pistol.png"
+      },
+      "Ultimate": {
+        "icon_ultimate_skill_bounda_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_ultimate_skill_bounda_01.png"
+      },
+      "Normal": {
+        "icon_skill_bounda_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_skill_bounda_01.png"
+      },
+      "Combo": {
+        "icon_combo_skill_bounda_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_combo_skill_bounda_01.png"
+      }
+    }
+  },
+  "chr_0023_antal": {
+    "name": "Antal",
+    "slug": "antal",
+    "avatar": "https://endfieldtools.dev/assets/images/endfield/charicon/icon_chr_0023_antal.png",
+    "skills": {
+      "Skill": {
+        "s": "https://endfieldtools.dev/assets/images/endfield/skillicon/s.png",
+        "icon_attack_funnel": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_attack_funnel.png"
+      },
+      "Normal": {
+        "icon_skill_antal_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_skill_antal_01.png"
+      },
+      "Combo": {
+        "icon_combo_skill_antal_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_combo_skill_antal_01.png"
+      },
+      "Ultimate": {
+        "icon_ultimate_skill_antal_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_ultimate_skill_antal_01.png"
+      }
+    }
+  },
+  "chr_0024_deepfin": {
+    "name": "Alesh",
+    "slug": "alesh",
+    "avatar": "https://endfieldtools.dev/assets/images/endfield/charicon/icon_chr_0024_deepfin.png",
+    "skills": {
+      "Combo": {
+        "icon_combo_skill_deepfin_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_combo_skill_deepfin_01.png"
+      },
+      "Skill": {
+        "icon_attack_claym": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_attack_claym.png"
+      },
+      "Normal": {
+        "icon_skill_deepfin_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_skill_deepfin_01.png"
+      },
+      "Ultimate": {
+        "icon_ultimate_skill_deepfin_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_ultimate_skill_deepfin_01.png"
+      }
+    }
+  },
+  "chr_0025_ardelia": {
+    "name": "Ardelia",
+    "slug": "ardelia",
+    "avatar": "https://endfieldtools.dev/assets/images/endfield/charicon/icon_chr_0025_ardelia.png",
+    "skills": {
+      "Skill": {
+        "icon_attack_funnel": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_attack_funnel.png",
+        "icon_attack_claym": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_attack_claym.png"
+      },
+      "Ultimate": {
+        "icon_ultimate_skill_ardelia_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_ultimate_skill_ardelia_01.png"
+      },
+      "Combo": {
+        "icon_combo_skill_ardelia_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_combo_skill_ardelia_01.png"
+      },
+      "Normal": {
+        "icon_skill_ardelia_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_skill_ardelia_01.png"
+      }
+    }
+  },
+  "chr_0026_lastrite": {
+    "name": "Last Rite",
+    "slug": "last-rite",
+    "avatar": "https://endfieldtools.dev/assets/images/endfield/charicon/icon_chr_0026_lastrite.png",
+    "skills": {
+      "Skill": {
+        "icon_attack_claym": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_attack_claym.png"
+      },
+      "Combo": {
+        "icon_combo_skill_lastrite_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_combo_skill_lastrite_01.png"
+      },
+      "Normal": {
+        "icon_skill_lastrite_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_skill_lastrite_01.png"
+      },
+      "Ultimate": {
+        "icon_ultimate_skill_lastrite_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_ultimate_skill_lastrite_01.png"
+      }
+    }
+  },
+  "chr_0027_tangtang": {
+    "name": "Tangtang",
+    "slug": "tangtang",
+    "avatar": "https://endfieldtools.dev/assets/images/endfield/charicon/icon_chr_0027_tangtang.png",
+    "skills": {
+      "Skill": {
+        "icon_attack_pistol": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_attack_pistol.png"
+      },
+      "Ultimate": {
+        "icon_ultimate_skill_tangtang_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_ultimate_skill_tangtang_01.png"
+      },
+      "Normal": {
+        "icon_skill_tangtang_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_skill_tangtang_01.png"
+      },
+      "Combo": {
+        "icon_combo_skill_tangtang_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_combo_skill_tangtang_01.png"
+      },
+      "Passive": {
+        "icon_attack_pistol": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_attack_pistol.png"
+      }
+    }
+  },
+  "chr_0028_wulfa": {
+    "name": "Rossi",
+    "slug": "rossi",
+    "avatar": "https://endfieldtools.dev/assets/images/endfield/charicon/icon_chr_0028_wulfa.png",
+    "skills": {
+      "Combo": {
+        "icon_combo_skill_wulfa_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_combo_skill_wulfa_01.png"
+      },
+      "Skill": {
+        "icon_attack_sword": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_attack_sword.png"
+      },
+      "Normal": {
+        "icon_skill_wulfa_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_skill_wulfa_01.png"
+      },
+      "Ultimate": {
+        "icon_ultimate_skill_wulfa_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_ultimate_skill_wulfa_01.png"
+      }
+    }
+  },
+  "chr_0029_pograni": {
+    "name": "Pogranichnik",
+    "slug": "pogranichnik",
+    "avatar": "https://endfieldtools.dev/assets/images/endfield/charicon/icon_chr_0029_pograni.png",
+    "skills": {
+      "Skill": {
+        "icon_attack_sword": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_attack_sword.png"
+      },
+      "Normal": {
+        "icon_skill_pograni_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_skill_pograni_01.png"
+      },
+      "Combo": {
+        "icon_combo_skill_pograni_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_combo_skill_pograni_01.png"
+      },
+      "Ultimate": {
+        "icon_ultimate_skill_pograni_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_ultimate_skill_pograni_01.png"
+      }
+    }
+  },
+  "chr_0030_zhuangfy": {
+    "name": "Zhuang Fangyi",
+    "slug": "zhuang-fangyi",
+    "avatar": "https://endfieldtools.dev/assets/images/endfield/charicon/icon_chr_0030_zhuangfy.png",
+    "skills": {
+      "Combo": {
+        "icon_combo_skill_zhuangfy_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_combo_skill_zhuangfy_01.png"
+      },
+      "Skill": {
+        "icon_attack_funnel": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_attack_funnel.png"
+      },
+      "Normal": {
+        "icon_skill_zhuangfy_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_skill_zhuangfy_01.png"
+      },
+      "Ultimate": {
+        "icon_ultimate_skill_zhuangfy_01": "https://endfieldtools.dev/assets/images/endfield/skillicon/icon_ultimate_skill_zhuangfy_01.png"
+      }
+    }
+  }
+}

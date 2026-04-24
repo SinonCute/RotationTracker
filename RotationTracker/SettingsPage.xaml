@@ -1,0 +1,476 @@
+<Page
+    x:Class="RotationTracker.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:RotationTracker"
+    xmlns:models="using:RotationTracker.Models"
+    xmlns:svc="using:RotationTracker.Services"
+    xmlns:conv="using:RotationTracker.Converters"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    RequestedTheme="Dark"
+    NavigationCacheMode="Disabled"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <conv:BooleanToVisibilityConverter x:Key="BoolVis"/>
+        <conv:BooleanToVisibilityConverter x:Key="BoolVisInverse" Invert="True"/>
+        <SolidColorBrush x:Key="SettingsPageBackground" Color="#FF111318"/>
+        <SolidColorBrush x:Key="SettingsCardBackground" Color="#F41B1D23"/>
+        <SolidColorBrush x:Key="SettingsCardStroke" Color="#33FFFFFF"/>
+        <SolidColorBrush x:Key="SettingsMuted" Color="#B3FFFFFF"/>
+        <SolidColorBrush x:Key="SettingsSlotBackground" Color="#1920262D"/>
+        <SolidColorBrush x:Key="SettingsAccentFill" Color="#FFCC9F3B"/>
+        <SolidColorBrush x:Key="SettingsAccentForeground" Color="#FF181103"/>
+    </Page.Resources>
+
+    <Grid Background="{StaticResource SettingsPageBackground}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <ScrollViewer Grid.Row="0"
+                      VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollMode="Disabled">
+            <Grid MaxWidth="1120"
+                  Padding="20"
+                  RowSpacing="16"
+                  HorizontalAlignment="Stretch">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0"
+                        CornerRadius="18"
+                        Background="{StaticResource SettingsCardBackground}"
+                        BorderBrush="{StaticResource SettingsCardStroke}"
+                        BorderThickness="1"
+                        Padding="18">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="Rotation Tracker Settings"
+                                       FontSize="24"
+                                       FontWeight="SemiBold"/>
+                            <TextBlock Text="Build teams, define the action order, and preview a cleaner widget layout. The editor opens large automatically and restores the widget size when you return."
+                                       Foreground="{StaticResource SettingsMuted}"
+                                       TextWrapping="Wrap"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1"
+                                    Orientation="Horizontal"
+                                    Spacing="8"
+                                    VerticalAlignment="Top">
+                            <Button Content="Cancel" Click="OnCancelClick" Padding="14,8"/>
+                            <Button Content="Save and close"
+                                    Click="OnSaveClick"
+                                    Padding="16,8"
+                                    Background="{StaticResource SettingsAccentFill}"
+                                    Foreground="{StaticResource SettingsAccentForeground}"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Row="1"
+                        CornerRadius="18"
+                        Background="{StaticResource SettingsCardBackground}"
+                        BorderBrush="{StaticResource SettingsCardStroke}"
+                        BorderThickness="1"
+                        Padding="18">
+                    <StackPanel Spacing="12">
+                        <TextBlock Text="Rotation selection"
+                                   FontSize="18"
+                                   FontWeight="SemiBold"/>
+                        <TextBlock Text="Pick the profile you want to edit, then decide which one should drive the live widget."
+                                   Foreground="{StaticResource SettingsMuted}"
+                                   TextWrapping="Wrap"/>
+
+                        <Grid ColumnSpacing="8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <ComboBox Grid.Column="0"
+                                      x:Name="RotationSelector"
+                                      Height="40"
+                                      MinHeight="40"
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Stretch"
+                                      SelectionChanged="OnRotationSelected"
+                                      ItemsSource="{x:Bind Rotations, Mode=OneWay}"
+                                      PlaceholderText="Choose a rotation">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate x:DataType="models:RotationDefinition">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="{x:Bind Name, Mode=OneWay}"
+                                                       FontWeight="SemiBold"/>
+                                            <Border Grid.Column="1"
+                                                    CornerRadius="999"
+                                                    Background="#22000000"
+                                                    Padding="8,2">
+                                                <TextBlock Text="{x:Bind Steps.Count, Mode=OneWay}"
+                                                           FontSize="11"
+                                                           Opacity="0.75"/>
+                                            </Border>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <Button Grid.Column="1"
+                                    Click="OnAddRotationClick"
+                                    ToolTipService.ToolTip="Add rotation"
+                                    Width="76"
+                                    Height="40"
+                                    Padding="10,8">
+                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                    <FontIcon Glyph="&#xE710;" FontSize="12"/>
+                                    <TextBlock Text="New"/>
+                                </StackPanel>
+                            </Button>
+                            <Button Grid.Column="2"
+                                    Click="OnShareRotationClick"
+                                    ToolTipService.ToolTip="Copy share string"
+                                    Width="76"
+                                    Height="40"
+                                    Padding="10,8">
+                                <FontIcon Glyph="&#xE72D;" FontSize="12"/>
+                            </Button>
+                            <Button Grid.Column="3"
+                                    Click="OnRenameRotationClick"
+                                    ToolTipService.ToolTip="Rename rotation"
+                                    Width="76"
+                                    Height="40"
+                                    Padding="10,8">
+                                <FontIcon Glyph="&#xE8AC;" FontSize="12"/>
+                            </Button>
+                            <Button Grid.Column="4"
+                                    Click="OnDeleteRotationClick"
+                                    ToolTipService.ToolTip="Delete rotation"
+                                    Width="76"
+                                    Height="40"
+                                    Padding="10,8">
+                                <FontIcon Glyph="&#xE74D;" FontSize="12"/>
+                            </Button>
+                        </Grid>
+
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Row="2"
+                        CornerRadius="18"
+                        Background="{StaticResource SettingsCardBackground}"
+                        BorderBrush="{StaticResource SettingsCardStroke}"
+                        BorderThickness="1"
+                        Padding="18">
+                    <StackPanel Spacing="14">
+                        <TextBlock Text="Team composition"
+                                   FontSize="18"
+                                   FontWeight="SemiBold"/>
+                        <TextBlock Text="Assign the four operators used by this rotation. Empty slots are allowed while you are drafting."
+                                   Foreground="{StaticResource SettingsMuted}"
+                                   TextWrapping="Wrap"/>
+
+                        <ItemsControl x:Name="TeamSlotsList"
+                                      ItemsSource="{x:Bind TeamSlots, Mode=OneWay}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Vertical" Spacing="10"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="local:TeamSlotEditorViewModel">
+                                    <Border Background="{StaticResource SettingsSlotBackground}"
+                                            BorderBrush="#22FFFFFF"
+                                            BorderThickness="1"
+                                            CornerRadius="14"
+                                            Padding="12">
+                                        <Grid ColumnSpacing="12">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="74"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackPanel Grid.Column="0"
+                                                        HorizontalAlignment="Center"
+                                                        Spacing="6">
+                                                <Grid Width="54" Height="54">
+                                                    <Border Width="54"
+                                                            Height="54"
+                                                            CornerRadius="27"
+                                                            Background="#332C313A"
+                                                            BorderBrush="#44FFFFFF"
+                                                            BorderThickness="1"/>
+                                                    <Image Width="50"
+                                                           Height="50"
+                                                           Stretch="UniformToFill"
+                                                           Source="{x:Bind AvatarUrl, Mode=OneWay}"
+                                                           Visibility="{x:Bind HasAvatar, Mode=OneWay, Converter={StaticResource BoolVis}}"/>
+                                                    <TextBlock Text="{x:Bind SlotLabel, Mode=OneWay}"
+                                                               HorizontalAlignment="Center"
+                                                               VerticalAlignment="Center"
+                                                               FontWeight="SemiBold"
+                                                               Opacity="0.72"
+                                                               Visibility="{x:Bind HasAvatar, Mode=OneWay, Converter={StaticResource BoolVisInverse}}"/>
+                                                </Grid>
+                                                <TextBlock Text="{x:Bind Display, Mode=OneWay}"
+                                                           FontSize="11"
+                                                           TextAlignment="Center"
+                                                           TextWrapping="Wrap"
+                                                           Foreground="{StaticResource SettingsMuted}"/>
+                                            </StackPanel>
+
+                                            <ComboBox Grid.Column="1"
+                                                      HorizontalAlignment="Stretch"
+                                                      ItemsSource="{x:Bind Catalog, Mode=OneWay}"
+                                                      SelectedValuePath="Id"
+                                                      SelectedValue="{x:Bind SelectedOperatorId, Mode=OneWay}"
+                                                      SelectionChanged="OnTeamSlotOperatorChanged"
+                                                      PlaceholderText="{x:Bind PlaceholderText, Mode=OneWay}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate x:DataType="svc:OperatorInfo">
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="42"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Grid Width="34" Height="34">
+                                                                <Border Width="34"
+                                                                        Height="34"
+                                                                        CornerRadius="17"
+                                                                        Background="#332C313A"/>
+                                                                <Image Width="34"
+                                                                       Height="34"
+                                                                       Stretch="UniformToFill"
+                                                                       Source="{x:Bind AvatarUrl, Mode=OneWay}"
+                                                                       Visibility="{x:Bind HasAvatar, Mode=OneWay, Converter={StaticResource BoolVis}}"/>
+                                                            </Grid>
+                                                            <StackPanel Grid.Column="1"
+                                                                        VerticalAlignment="Center">
+                                                                <TextBlock Text="{x:Bind DisplayName, Mode=OneWay}"
+                                                                           FontWeight="SemiBold"/>
+                                                                <TextBlock Text="{x:Bind Id, Mode=OneWay}"
+                                                                           FontSize="11"
+                                                                           Opacity="0.58"/>
+                                                            </StackPanel>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Row="3"
+                        CornerRadius="18"
+                        Background="{StaticResource SettingsCardBackground}"
+                        BorderBrush="{StaticResource SettingsCardStroke}"
+                        BorderThickness="1"
+                        Padding="18">
+                    <Grid RowSpacing="12">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Spacing="6">
+                            <TextBlock Text="Rotation steps"
+                                       FontSize="18"
+                                       FontWeight="SemiBold"/>
+                            <TextBlock Text="Each row describes one step the widget should advance through. Reorder them or leave a label blank to let the widget generate one."
+                                       Foreground="{StaticResource SettingsMuted}"
+                                       TextWrapping="Wrap"/>
+                        </StackPanel>
+
+                        <ItemsControl Grid.Row="1"
+                                      x:Name="StepsList"
+                                      ItemsSource="{x:Bind StepEditors, Mode=OneWay}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Vertical" Spacing="10"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="local:StepEditorViewModel">
+                                    <Border Background="{StaticResource SettingsSlotBackground}"
+                                            BorderBrush="#22FFFFFF"
+                                            BorderThickness="1"
+                                            CornerRadius="14"
+                                            Padding="12">
+                                        <Grid ColumnSpacing="10">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="54"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="180"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackPanel Grid.Column="0"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Spacing="4">
+                                                <Border Width="34"
+                                                        Height="34"
+                                                        CornerRadius="17"
+                                                        Background="#2AF3C86E">
+                                                    <TextBlock Text="{x:Bind OrderText, Mode=OneWay}"
+                                                               HorizontalAlignment="Center"
+                                                               VerticalAlignment="Center"
+                                                               FontWeight="SemiBold"/>
+                                                </Border>
+                                            </StackPanel>
+
+                                            <ComboBox Grid.Column="1"
+                                                      HorizontalAlignment="Stretch"
+                                                      ItemsSource="{x:Bind TeamSlots}"
+                                                      SelectedValuePath="Slot"
+                                                      SelectedValue="{x:Bind SlotIndex, Mode=TwoWay}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate x:DataType="local:TeamSlotEditorViewModel">
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="36"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Grid Width="30" Height="30">
+                                                                <Border Width="30"
+                                                                        Height="30"
+                                                                        CornerRadius="15"
+                                                                        Background="#332C313A"/>
+                                                                <Image Width="30"
+                                                                       Height="30"
+                                                                       Stretch="UniformToFill"
+                                                                       Source="{x:Bind AvatarUrl, Mode=OneWay}"
+                                                                       Visibility="{x:Bind HasAvatar, Mode=OneWay, Converter={StaticResource BoolVis}}"/>
+                                                            </Grid>
+                                                            <StackPanel Grid.Column="1"
+                                                                        VerticalAlignment="Center">
+                                                                <TextBlock Text="{x:Bind OperatorDisplayName, Mode=OneWay}"
+                                                                           FontWeight="SemiBold"/>
+                                                                <TextBlock Text="{x:Bind PlaceholderText, Mode=OneWay}"
+                                                                           FontSize="11"
+                                                                           Opacity="0.58"/>
+                                                            </StackPanel>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+
+                                            <ComboBox Grid.Column="2"
+                                                      HorizontalAlignment="Stretch"
+                                                      ItemsSource="{x:Bind ActionChoices}"
+                                                      DisplayMemberPath="Label"
+                                                      SelectedValuePath="Value"
+                                                      SelectedValue="{x:Bind ActionValue, Mode=TwoWay}"/>
+
+                                            <StackPanel Grid.Column="4"
+                                                        Orientation="Horizontal"
+                                                        Spacing="2"
+                                                        VerticalAlignment="Center">
+                                                <Button Click="OnStepMoveUp"
+                                                        Tag="{x:Bind}"
+                                                        ToolTipService.ToolTip="Move up"
+                                                        Padding="8">
+                                                    <FontIcon Glyph="&#xE70E;" FontSize="11"/>
+                                                </Button>
+                                                <Button Click="OnStepMoveDown"
+                                                        Tag="{x:Bind}"
+                                                        ToolTipService.ToolTip="Move down"
+                                                        Padding="8">
+                                                    <FontIcon Glyph="&#xE70D;" FontSize="11"/>
+                                                </Button>
+                                                <Button Click="OnStepRemove"
+                                                        Tag="{x:Bind}"
+                                                        ToolTipService.ToolTip="Remove"
+                                                        Padding="8">
+                                                    <FontIcon Glyph="&#xE74D;" FontSize="11"/>
+                                                </Button>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                        <Button Grid.Row="2"
+                                Click="OnAddStepClick"
+                                HorizontalAlignment="Left"
+                                Padding="12,8">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <FontIcon Glyph="&#xE710;" FontSize="12"/>
+                                <TextBlock Text="Add step"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Row="4"
+                        CornerRadius="18"
+                        Background="{StaticResource SettingsCardBackground}"
+                        BorderBrush="{StaticResource SettingsCardStroke}"
+                        BorderThickness="1"
+                        Padding="18">
+                    <StackPanel Spacing="10">
+                        <TextBlock Text="Widget behavior"
+                                   FontSize="18"
+                                   FontWeight="SemiBold"/>
+                        <ToggleSwitch x:Name="AutoAdvanceToggle"
+                                      Header="Auto-advance"
+                                      OffContent="Manual advance only"
+                                      OnContent="Advance when the expected input fires"
+                                      Toggled="OnAutoAdvanceToggled"/>
+                        <ToggleSwitch x:Name="LoopToggle"
+                                      Header="Loop"
+                                      OffContent="Stop at final step"
+                                      OnContent="Loop to first step when complete"
+                                      Toggled="OnLoopToggled"/>
+                        <Grid Margin="0,6,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="160"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Pinned opacity"
+                                       VerticalAlignment="Center"
+                                       Foreground="{StaticResource SettingsMuted}"/>
+                            <Slider Grid.Column="1"
+                                    x:Name="OpacitySlider"
+                                    Minimum="0.2"
+                                    Maximum="1.0"
+                                    StepFrequency="0.05"
+                                    TickFrequency="0.1"
+                                    ValueChanged="OnOpacityChanged"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </ScrollViewer>
+
+        <TextBlock Grid.Row="1"
+                   Text="Made by Sinon with Love ❤️"
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,12"
+                   FontSize="13"
+                   Foreground="{StaticResource SettingsMuted}"/>
+    </Grid>
+</Page>

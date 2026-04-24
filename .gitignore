@@ -1,0 +1,12 @@
+bin/
+obj/
+*.user
+*.suo
+.vs/
+AppPackages/
+BundleArtifacts/
+build-output.log
+*.pfx
+signing.pfx
+.local-cert/
+scripts/Manage-LocalOnly.ps1
