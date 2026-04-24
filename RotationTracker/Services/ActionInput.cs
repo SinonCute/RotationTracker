@@ -68,8 +68,8 @@ namespace RotationTracker.Services
         public string ToHint()
         {
             if (Kind == InputKind.MouseLeft) return "LMB";
-            if (Kind == InputKind.MouseLeftBurst) return "LMBx3/Hold 2s";
-            if (Kind == InputKind.MouseLeftHold) return "Hold LMB 2s";
+            if (Kind == InputKind.MouseLeftBurst) return "LMBx3/Hold LMB";
+            if (Kind == InputKind.MouseLeftHold) return "Hold LMB";
             return Key;
         }
     }
