@@ -20,6 +20,13 @@ It is not a macro, not an auto-play tool, and not meant to play the game for you
 - Works as an Xbox Game Bar widget
 - Can keep an elevated helper running for admin games after restart
 
+### Screenshots
+
+Add screenshots to `docs/screenshots/` and update the paths below:
+
+![Widget view](docs/screenshots/demo-2.png)
+![Settings view](docs/screenshots/demo-1.png)
+
 ### Why the elevated helper exists
 
 Arknights: Endfield is required to run with administrator privileges. Rotation Tracker also needs a helper running at the same privilege level so it can keep listening to keyboard and mouse input correctly. The installer starts that helper automatically, and uninstall removes it.
