@@ -1,8 +1,8 @@
 # Rotation Tracker
 
-Rotation Tracker is a rotation helper for Arknights: Endfield.
+Rotation Tracker is a rotation helper widget for Xbox Game Bar on Windows, designed for Arknights: Endfield.
 
-It is not a macro, not an auto-play tool, and not meant to play the game for you. It helps you understand and track your own rotation inside Xbox Game Bar.
+It is not a macro, not an auto-play tool, and does not interact with or modify the game in any way. It does not read memory, inject code, or automate gameplay. It simply provides a visual tool to help you understand and track your own rotation inside Xbox Game Bar.
 
 ## Language
 
@@ -75,9 +75,9 @@ License reference: [GNU General Public License version 2](https://opensource.org
 
 ### Giới thiệu
 
-Rotation Tracker là công cụ hỗ trợ xoay vòng kỹ năng cho Arknights: Endfield.
+Rotation Tracker là một widget cho Xbox Game Bar trên Windows, được thiết kế cho Arknights: Endfield.
 
-Đây không phải macro, không phải auto-play, và không dùng để tự chơi thay bạn. Nó chỉ giúp bạn hiểu và theo dõi rotation của mình ngay trong Xbox Game Bar.
+Đây không phải macro, không phải auto-play, và không can thiệp vào game dưới bất kỳ hình thức nào. Nó không đọc bộ nhớ, không inject code, và không tự động hóa gameplay. Công cụ này chỉ hiển thị để bạn theo dõi và hiểu rotation của mình ngay trong Xbox Game Bar.
 
 ### Tính năng
 
