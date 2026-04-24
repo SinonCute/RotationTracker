@@ -10,6 +10,7 @@ namespace GameBarInputBridge.Shared
         public const string KeyUp = "keyUp";
         public const string KeyDown = "keyDown";
         public const string MouseLeftDown = "mouseLeftDown";
+        public const string MouseLeftUp = "mouseLeftUp";
         public const string MouseLeftBurst = "mouseLeftBurst";
         public const string MouseLeftHold = "mouseLeftHold";
         public const string MouseRightDown = "mouseRightDown";

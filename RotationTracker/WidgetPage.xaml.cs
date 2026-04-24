@@ -136,6 +136,7 @@ namespace RotationTracker
         private RotationSettings _settings;
         private bool _isRotationActive;
         private DateTimeOffset _lastToggleAt = DateTimeOffset.MinValue;
+        private readonly DispatcherTimer _finalStrikeHoldTimer;
 
         public ObservableCollection<StepViewModel> Steps { get; } = new ObservableCollection<StepViewModel>();
 
@@ -151,6 +152,8 @@ namespace RotationTracker
         public WidgetPage()
         {
             InitializeComponent();
+            _finalStrikeHoldTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(100) };
+            _finalStrikeHoldTimer.Tick += FinalStrikeHoldTimer_Tick;
             Loaded += WidgetPage_Loaded;
             Unloaded += WidgetPage_Unloaded;
             _runtime.PropertyChanged += Runtime_PropertyChanged;
@@ -197,6 +200,7 @@ namespace RotationTracker
             ApplyPinnedVisuals();
 
             StartInputCapture();
+            _finalStrikeHoldTimer.Start();
 
             _backend = BackendClient.Instance;
             _backend.InputDetected += OnBackendInput;
@@ -234,6 +238,7 @@ namespace RotationTracker
             }
 
             SettingsService.Instance.SettingsChanged -= OnSettingsChanged;
+            _finalStrikeHoldTimer.Stop();
         }
 
         public void ReloadFromSettings()
@@ -410,7 +415,8 @@ namespace RotationTracker
                 foreach (var step in _runtime.Definition.Steps)
                 {
                     var input = ActionInput.For(step.SlotIndex, step.Action);
-                    if (input.Kind != InputKind.MouseLeft && !string.IsNullOrEmpty(input.Key))
+                    if ((input.Kind == InputKind.ShortPress || input.Kind == InputKind.LongPress)
+                        && !string.IsNullOrEmpty(input.Key))
                     {
                         keys.Add(input.Key);
                     }
@@ -466,8 +472,15 @@ namespace RotationTracker
                     return;
                 }
                 if (_settings == null || !_settings.AutoAdvanceOnKey || !_isRotationActive) return;
-                _runtime.TryAdvance(e.Kind, e.Key);
+                _runtime.TryAdvance(e.Kind, e.Key, e.Timestamp);
             });
+        }
+
+        private void FinalStrikeHoldTimer_Tick(object sender, object e)
+        {
+            if (_settings == null || !_settings.AutoAdvanceOnKey || !_isRotationActive) return;
+            var now = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            _runtime.TryAdvanceFinalStrikeHold(now);
         }
 
         private void OnActivationRequested(object sender, EventArgs e)

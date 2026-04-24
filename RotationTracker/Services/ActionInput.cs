@@ -10,6 +10,7 @@ namespace RotationTracker.Services
         MouseLeft = 2,
         MouseLeftBurst = 3,
         MouseLeftHold = 4,
+        MouseLeftUp = 5,
     }
 
     public readonly struct ActionInput : IEquatable<ActionInput>
@@ -37,7 +38,7 @@ namespace RotationTracker.Services
                 case RotationAction.Normal:
                     return new ActionInput(InputKind.MouseLeft, "LMB");
                 case RotationAction.FinalStrike:
-                    return new ActionInput(InputKind.MouseLeftBurst, "LMBx3/Hold 3s");
+                    return new ActionInput(InputKind.MouseLeftBurst, "Hold LMB");
                 default:
                     return default;
             }
@@ -67,8 +68,8 @@ namespace RotationTracker.Services
         public string ToHint()
         {
             if (Kind == InputKind.MouseLeft) return "LMB";
-            if (Kind == InputKind.MouseLeftBurst) return "LMBx3/Hold 3s";
-            if (Kind == InputKind.MouseLeftHold) return "Hold LMB 3s";
+            if (Kind == InputKind.MouseLeftBurst) return "LMBx3/Hold 2s";
+            if (Kind == InputKind.MouseLeftHold) return "Hold LMB 2s";
             return Key;
         }
     }

@@ -11,6 +11,7 @@ namespace RotationTracker.Backend
         private const int RIM_TYPEMOUSE = 0;
         private const int RIM_TYPEKEYBOARD = 1;
         private const ushort RI_MOUSE_LEFT_BUTTON_DOWN = 0x0001;
+        private const ushort RI_MOUSE_LEFT_BUTTON_UP = 0x0002;
         private const ushort RI_KEY_BREAK = 0x0001;
         private const uint RIDEV_INPUTSINK = 0x00000100;
         private const uint RIDEV_DEVNOTIFY = 0x00002000;
@@ -21,6 +22,7 @@ namespace RotationTracker.Backend
         public event EventHandler<int> KeyDown;
         public event EventHandler<int> KeyUp;
         public event EventHandler LeftButtonDown;
+        public event EventHandler LeftButtonUp;
 
         public RawInputSink(Action<string> log = null)
         {
@@ -68,6 +70,10 @@ namespace RotationTracker.Backend
                     if ((raw.data.mouse.usButtonFlags & RI_MOUSE_LEFT_BUTTON_DOWN) != 0)
                     {
                         LeftButtonDown?.Invoke(this, EventArgs.Empty);
+                    }
+                    if ((raw.data.mouse.usButtonFlags & RI_MOUSE_LEFT_BUTTON_UP) != 0)
+                    {
+                        LeftButtonUp?.Invoke(this, EventArgs.Empty);
                     }
                 }
             }

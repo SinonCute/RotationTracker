@@ -45,14 +45,6 @@ namespace RotationTracker.Backend
         private const int DuplicateSuppressMs = 80;
         private static readonly object MouseStateLock = new object();
         private static long _lastLeftDownTimestamp;
-        private static long _leftDownStartedAt;
-        private static int _leftBurstCount;
-        private static bool _leftButtonIsDown;
-        private static bool _leftHoldSent;
-        private static System.Threading.Timer _leftHoldTimer;
-        private const int FinalStrikeBurstClicks = 3;
-        private const int FinalStrikeBurstWindowMs = 1500;
-        private const int FinalStrikeHoldMs = 3000;
 
         [STAThread]
         private static void Main(string[] args)
@@ -151,7 +143,7 @@ namespace RotationTracker.Backend
                 GetCursorPos(out var pt);
                 ProcessLeftButtonDown(pt.X, pt.Y, ref sentClicks);
             };
-            _leftHoldTimer = new System.Threading.Timer(CheckLeftButtonHold, null, 100, 100);
+            _rawInput.LeftButtonUp += (_, __) => ProcessLeftButtonUp();
 
             var pipeThread = new Thread(() => _pipe.Run(_cts.Token))
             {
@@ -163,7 +155,6 @@ namespace RotationTracker.Backend
             Application.Run(new BackgroundContext(_cts));
 
             _mouseHook.Stop();
-            _leftHoldTimer?.Dispose();
             _rawInput?.Dispose();
             _poller.Stop();
             pipeThread.Join(1000);
@@ -262,8 +253,6 @@ namespace RotationTracker.Backend
         {
             long now = (long)GetTickCount64();
             bool emitShort = false;
-            bool emitBurst = false;
-            long previousLeftDownTimestamp;
 
             lock (MouseStateLock)
             {
@@ -272,27 +261,8 @@ namespace RotationTracker.Backend
                     return;
                 }
 
-                previousLeftDownTimestamp = _lastLeftDownTimestamp;
                 _lastLeftDownTimestamp = now;
-                _leftButtonIsDown = true;
-                _leftHoldSent = false;
-                _leftDownStartedAt = now;
-
-                if (previousLeftDownTimestamp > 0 && (now - previousLeftDownTimestamp) <= FinalStrikeBurstWindowMs)
-                {
-                    _leftBurstCount++;
-                }
-                else
-                {
-                    _leftBurstCount = 1;
-                }
-
                 emitShort = true;
-                if (_leftBurstCount >= FinalStrikeBurstClicks)
-                {
-                    emitBurst = true;
-                    _leftBurstCount = 0;
-                }
             }
 
             if (emitShort && TryMarkSend("short LMB"))
@@ -312,60 +282,12 @@ namespace RotationTracker.Backend
                     Log($"Sent short LMB to pipe. pipeConnected={_pipe.IsConnected} sent={s}");
                 }
             }
-
-            if (emitBurst && TryMarkSend("burst LMB"))
-            {
-                _pipe.Send(WrapInput(new InputEvent
-                {
-                    Type = InputType.Mouse,
-                    Key = "LMB",
-                    Action = InputActions.MouseLeftBurst,
-                    X = x,
-                    Y = y,
-                    Timestamp = now,
-                }));
-                Log("Sent final strike burst LMB to pipe.");
-            }
         }
 
         private static void ProcessLeftButtonUp()
         {
-            lock (MouseStateLock)
-            {
-                if (!_leftButtonIsDown)
-                {
-                    return;
-                }
-
-                _leftButtonIsDown = false;
-                _leftHoldSent = false;
-                _leftDownStartedAt = 0;
-            }
-        }
-
-        private static void CheckLeftButtonHold(object state)
-        {
             long now = (long)GetTickCount64();
-            bool emitHold = false;
-
-            lock (MouseStateLock)
-            {
-                // Final Strike should complete even if the player keeps holding LMB.
-                if (!_leftButtonIsDown || _leftHoldSent || _leftDownStartedAt <= 0)
-                {
-                    return;
-                }
-
-                if ((now - _leftDownStartedAt) < FinalStrikeHoldMs)
-                {
-                    return;
-                }
-
-                _leftHoldSent = true;
-                emitHold = true;
-            }
-
-            if (!emitHold || !TryMarkSend("hold LMB"))
+            if (!TryMarkSend("up LMB"))
             {
                 return;
             }
@@ -374,10 +296,9 @@ namespace RotationTracker.Backend
             {
                 Type = InputType.Mouse,
                 Key = "LMB",
-                Action = InputActions.MouseLeftHold,
+                Action = InputActions.MouseLeftUp,
                 Timestamp = now,
             }));
-            Log("Sent final strike hold LMB to pipe.");
         }
 
         private sealed class BackgroundContext : ApplicationContext

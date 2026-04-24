@@ -16,11 +16,13 @@ namespace RotationTracker.Services
     {
         public InputKind Kind { get; }
         public string Key { get; }
+        public long Timestamp { get; }
 
-        public InputEventArgs(InputKind kind, string key)
+        public InputEventArgs(InputKind kind, string key, long timestamp)
         {
             Kind = kind;
             Key = key ?? "";
+            Timestamp = timestamp;
         }
     }
 
@@ -300,21 +302,29 @@ namespace RotationTracker.Services
                 return;
             }
 
+            if (string.Equals(action, InputActions.MouseLeftUp, StringComparison.OrdinalIgnoreCase))
+            {
+                Raise(InputKind.MouseLeftUp, "LMB");
+                return;
+            }
+
+            // Older backends may still emit derived mouse gestures. The current
+            // runtime computes Final Strike from raw LMB events instead.
             if (string.Equals(action, InputActions.MouseLeftBurst, StringComparison.OrdinalIgnoreCase))
             {
-                Raise(InputKind.MouseLeftBurst, "LMB");
                 return;
             }
 
             if (string.Equals(action, InputActions.MouseLeftHold, StringComparison.OrdinalIgnoreCase))
             {
-                Raise(InputKind.MouseLeftHold, "LMB");
+                return;
             }
         }
 
         private void Raise(InputKind kind, string key)
         {
-            try { InputDetected?.Invoke(this, new InputEventArgs(kind, key)); } catch { }
+            var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            try { InputDetected?.Invoke(this, new InputEventArgs(kind, key, timestamp)); } catch { }
         }
 
         private void TeardownPipe()
