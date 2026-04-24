@@ -22,8 +22,6 @@ It is not a macro, not an auto-play tool, and not meant to play the game for you
 
 ### Screenshots
 
-Add screenshots to `docs/screenshots/` and update the paths below:
-
 ![Widget view](docs/screenshots/demo-2.png)
 ![Settings view](docs/screenshots/demo-1.png)
 
