@@ -21,6 +21,7 @@ namespace RotationTracker.Backend
         private readonly string _pipeName;
         private readonly string _packageSid;
         private readonly object _writeLock = new object();
+        private readonly Action<string> _log;
 
         private NamedPipeServerStream _server;
         private StreamReader _reader;
@@ -32,14 +33,15 @@ namespace RotationTracker.Backend
 
         public bool IsConnected => _server != null && _server.IsConnected;
 
-        public PipeServer(string packageSid)
+        public PipeServer(string packageSid, Action<string> log = null)
         {
             _packageSid = packageSid ?? throw new ArgumentNullException(nameof(packageSid));
+            _log = log;
 
             // AppContainer-reachable pipe name; the widget connects using \\.\pipe\LOCAL\RotationTrackerPipe
             // because UWP resolves LOCAL\... to Sessions\<id>\AppContainerNamedObjects\<sid>\...
             _pipeName = $"Sessions\\{Process.GetCurrentProcess().SessionId}\\AppContainerNamedObjects\\{_packageSid}\\RotationTrackerPipe";
-            Console.WriteLine($"[PipeServer] Pipe name: {_pipeName}");
+            Log($"[PipeServer] Pipe name: {_pipeName}");
         }
 
         public void Run(CancellationToken cancellationToken)
@@ -53,7 +55,7 @@ namespace RotationTracker.Backend
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"[PipeServer] Loop error: {ex.Message}");
+                    Log($"[PipeServer] Loop error: {ex.Message}");
                     Thread.Sleep(500);
                 }
                 finally
@@ -84,7 +86,7 @@ namespace RotationTracker.Backend
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"[PipeServer] Send failed: {ex.Message}");
+                Log($"[PipeServer] Send failed: {ex.Message}");
             }
         }
 
@@ -103,7 +105,7 @@ namespace RotationTracker.Backend
             _reader = new StreamReader(_server);
             _writer = new StreamWriter(_server);
 
-            Console.WriteLine("[PipeServer] Waiting for client...");
+            Log("[PipeServer] Waiting for client...");
             var wait = _server.BeginWaitForConnection(null, null);
 
             while (!wait.IsCompleted)
@@ -116,7 +118,7 @@ namespace RotationTracker.Backend
             }
 
             _server.EndWaitForConnection(wait);
-            Console.WriteLine("[PipeServer] Client connected.");
+            Log("[PipeServer] Client connected.");
             Connected?.Invoke(this, EventArgs.Empty);
         }
 
@@ -131,13 +133,13 @@ namespace RotationTracker.Backend
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"[PipeServer] Read failed: {ex.Message}");
+                    Log($"[PipeServer] Read failed: {ex.Message}");
                     break;
                 }
 
                 if (line == null) break;
 
-                Console.WriteLine($"[PipeServer] < {line}");
+                Log($"[PipeServer] < {line}");
                 LineReceived?.Invoke(this, line);
             }
         }
@@ -171,6 +173,17 @@ namespace RotationTracker.Backend
             ps.AddAccessRule(clientRule);
             ps.AddAccessRule(ownerRule);
             return ps;
+        }
+
+        private void Log(string message)
+        {
+            if (_log != null)
+            {
+                _log(message);
+                return;
+            }
+
+            Console.WriteLine(message);
         }
     }
 }

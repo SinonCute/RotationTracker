@@ -15,6 +15,7 @@ $backupDir = Join-Path $env:LOCALAPPDATA "RotationTracker"
 $settingsBackupPath = Join-Path $backupDir "rotation-settings.json"
 $elevatedBackendDir = Join-Path $backupDir "ElevatedBackend"
 $elevatedBackendExePath = Join-Path $elevatedBackendDir "RotationTracker.Backend.exe"
+$elevatedBackendSupervisorPath = Join-Path $backupDir "Start-ElevatedBackend.ps1"
 $currentProgressId = 1
 
 function Show-Step {
@@ -255,6 +256,42 @@ function Install-ElevatedBackendFilesFromRelease {
     Copy-Item -Path (Join-Path $sourceDir "*") -Destination $elevatedBackendDir -Recurse -Force
 }
 
+function Install-ElevatedBackendSupervisor {
+    Ensure-BackupDirectory
+
+    $script = @'
+param(
+    [Parameter(Mandatory = $true)]
+    [string]$BackendPath,
+
+    [Parameter(Mandatory = $true)]
+    [string]$PackageSid
+)
+
+$ErrorActionPreference = "Stop"
+$restartDelaySeconds = 2
+$minHealthyRunSeconds = 10
+
+while ($true) {
+    if (-not (Test-Path -LiteralPath $BackendPath)) {
+        Start-Sleep -Seconds $restartDelaySeconds
+        continue
+    }
+
+    $startedAt = Get-Date
+    $process = Start-Process -FilePath $BackendPath -ArgumentList "`"$PackageSid`"" -PassThru -WindowStyle Hidden
+    $process.WaitForExit()
+
+    $runtimeSeconds = ((Get-Date) - $startedAt).TotalSeconds
+    if ($runtimeSeconds -lt $minHealthyRunSeconds) {
+        Start-Sleep -Seconds $restartDelaySeconds
+    }
+}
+'@
+
+    Set-Content -LiteralPath $elevatedBackendSupervisorPath -Value $script -Encoding UTF8 -Force
+}
+
 function Install-FromReleaseAssets {
     Show-Step -Percent 30 -Status "Trusting certificate"
     if (-not (Test-Path $releaseBundlePath)) {
@@ -296,9 +333,10 @@ function Install-Package {
 function Register-ElevatedBackendTask {
     $backend = Resolve-InstalledBackendInfo
     $userId = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
+    Install-ElevatedBackendSupervisor
     $action = New-ScheduledTaskAction `
-        -Execute $elevatedBackendExePath `
-        -Argument "`"$($backend.PackageSid)`""
+        -Execute "powershell.exe" `
+        -Argument "-NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File `"$elevatedBackendSupervisorPath`" -BackendPath `"$elevatedBackendExePath`" -PackageSid `"$($backend.PackageSid)`""
     $trigger = New-ScheduledTaskTrigger -AtLogOn -User $userId
     $principal = New-ScheduledTaskPrincipal -UserId $userId -LogonType Interactive -RunLevel Highest
     $settings = New-ScheduledTaskSettingsSet `
@@ -317,7 +355,18 @@ function Register-ElevatedBackendTask {
 }
 
 function Unregister-ElevatedBackendTask {
+    Stop-ScheduledTask -TaskName $scheduledTaskName -ErrorAction SilentlyContinue | Out-Null
     Unregister-ScheduledTask -TaskName $scheduledTaskName -Confirm:$false -ErrorAction SilentlyContinue | Out-Null
+}
+
+function Remove-ElevatedBackendFiles {
+    if (Test-Path -LiteralPath $elevatedBackendSupervisorPath) {
+        Remove-Item -LiteralPath $elevatedBackendSupervisorPath -Force -ErrorAction SilentlyContinue
+    }
+
+    if (Test-Path -LiteralPath $elevatedBackendDir) {
+        Remove-Item -LiteralPath $elevatedBackendDir -Recurse -Force -ErrorAction SilentlyContinue
+    }
 }
 
 function Start-ElevatedBackend {
@@ -408,6 +457,9 @@ try {
 
             Show-Step -Percent 60 -Status "Removing elevated startup task"
             Unregister-ElevatedBackendTask
+
+            Show-Step -Percent 70 -Status "Removing elevated backend helper"
+            Remove-ElevatedBackendFiles
 
             Show-Step -Percent 80 -Status "Removing package"
             Remove-InstalledPackage

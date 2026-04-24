@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.IO;
+using System.IO.Pipes;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
@@ -11,8 +12,9 @@ namespace RotationTracker.Backend
 {
     internal static class Program
     {
-        private const string MutexName = "RotationTracker.Backend.SingleInstance";
         private const string LogFileName = "backend.log";
+        private const string MutexName = "RotationTracker.Backend.SingleInstance";
+        private const int BackendProbeTimeoutMs = 500;
 
         [DllImport("kernel32.dll")]
         private static extern IntPtr GetConsoleWindow();
@@ -54,13 +56,6 @@ namespace RotationTracker.Backend
             if (handle != IntPtr.Zero) ShowWindow(handle, SW_HIDE);
 #endif
 
-            _mutex = new Mutex(true, MutexName, out var firstInstance);
-            if (!firstInstance)
-            {
-                Log("Backend already running. Exiting.");
-                return;
-            }
-
             AppDomain.CurrentDomain.UnhandledException += (_, e) =>
                 Log("UnhandledException: " + e.ExceptionObject);
 
@@ -71,10 +66,22 @@ namespace RotationTracker.Backend
                 return;
             }
 
-            Log($"Starting backend. PackageSid={packageSid}");
+            _mutex = new Mutex(true, MutexName, out var firstInstance);
+            if (!firstInstance && ExistingBackendAcceptsPipe(packageSid))
+            {
+                Log("Backend already running and accepting pipe connections. Exiting.");
+                return;
+            }
+
+            if (!firstInstance)
+            {
+                Log("Backend mutex is held, but the pipe is unreachable. Starting recovery backend.");
+            }
+
+            Log($"Starting backend. PackageSid={packageSid} ProcessId={System.Diagnostics.Process.GetCurrentProcess().Id}");
 
             _cts = new CancellationTokenSource();
-            _pipe = new PipeServer(packageSid);
+            _pipe = new PipeServer(packageSid, Log);
             _poller = new KeyboardPoller();
 
             _pipe.LineReceived += OnLineReceived;
@@ -213,6 +220,28 @@ namespace RotationTracker.Backend
             {
                 Log($"Failed to read PackageSid from LocalSettings: {ex.Message}");
                 return null;
+            }
+        }
+
+        private static bool ExistingBackendAcceptsPipe(string packageSid)
+        {
+            var pipeName = $"Sessions\\{System.Diagnostics.Process.GetCurrentProcess().SessionId}\\AppContainerNamedObjects\\{packageSid}\\RotationTrackerPipe";
+
+            try
+            {
+                using (var client = new NamedPipeClientStream(
+                    ".",
+                    pipeName,
+                    PipeDirection.InOut,
+                    PipeOptions.Asynchronous))
+                {
+                    client.Connect(BackendProbeTimeoutMs);
+                    return client.IsConnected;
+                }
+            }
+            catch
+            {
+                return false;
             }
         }
 
