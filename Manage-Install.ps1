@@ -252,6 +252,8 @@ function Install-ElevatedBackendFilesFromRelease {
     }
 
     Ensure-BackupDirectory
+    Stop-ScheduledTask -TaskName $scheduledTaskName -ErrorAction SilentlyContinue | Out-Null
+    Stop-AppProcesses
     New-Item -ItemType Directory -Path $elevatedBackendDir -Force | Out-Null
     Copy-Item -Path (Join-Path $sourceDir "*") -Destination $elevatedBackendDir -Recurse -Force
 }
