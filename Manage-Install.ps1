@@ -256,6 +256,10 @@ function Install-ElevatedBackendFilesFromRelease {
     Stop-AppProcesses
     New-Item -ItemType Directory -Path $elevatedBackendDir -Force | Out-Null
     Copy-Item -Path (Join-Path $sourceDir "*") -Destination $elevatedBackendDir -Recurse -Force
+
+    if (-not (Test-Path -LiteralPath $elevatedBackendExePath)) {
+        throw "Elevated backend executable was not copied: $elevatedBackendExePath"
+    }
 }
 
 function Install-ElevatedBackendSupervisor {
@@ -273,19 +277,45 @@ param(
 $ErrorActionPreference = "Stop"
 $restartDelaySeconds = 2
 $minHealthyRunSeconds = 10
+$logPath = Join-Path (Split-Path -Parent $BackendPath) "supervisor.log"
+
+function Write-SupervisorLog {
+    param([string]$Message)
+    try {
+        Add-Content -LiteralPath $logPath -Value ("{0:O} | {1}" -f [DateTimeOffset]::Now, $Message)
+    }
+    catch {
+    }
+}
+
+Write-SupervisorLog "Supervisor starting. BackendPath=$BackendPath PackageSid=$PackageSid"
 
 while ($true) {
-    if (-not (Test-Path -LiteralPath $BackendPath)) {
-        Start-Sleep -Seconds $restartDelaySeconds
-        continue
+    try {
+        if (-not (Test-Path -LiteralPath $BackendPath)) {
+            Write-SupervisorLog "Backend missing: $BackendPath"
+            Start-Sleep -Seconds $restartDelaySeconds
+            continue
+        }
+
+        $startedAt = Get-Date
+        $startInfo = New-Object System.Diagnostics.ProcessStartInfo
+        $startInfo.FileName = $BackendPath
+        $startInfo.Arguments = "`"$PackageSid`""
+        $startInfo.UseShellExecute = $false
+        $startInfo.CreateNoWindow = $true
+        $process = [System.Diagnostics.Process]::Start($startInfo)
+        Write-SupervisorLog "Started backend pid=$($process.Id)"
+        $process.WaitForExit()
+
+        $runtimeSeconds = ((Get-Date) - $startedAt).TotalSeconds
+        Write-SupervisorLog "Backend exited code=$($process.ExitCode) runtimeSeconds=$runtimeSeconds"
+        if ($runtimeSeconds -lt $minHealthyRunSeconds) {
+            Start-Sleep -Seconds $restartDelaySeconds
+        }
     }
-
-    $startedAt = Get-Date
-    $process = Start-Process -FilePath $BackendPath -ArgumentList "`"$PackageSid`"" -PassThru -WindowStyle Hidden
-    $process.WaitForExit()
-
-    $runtimeSeconds = ((Get-Date) - $startedAt).TotalSeconds
-    if ($runtimeSeconds -lt $minHealthyRunSeconds) {
+    catch {
+        Write-SupervisorLog "Supervisor error: $($_.Exception.Message)"
         Start-Sleep -Seconds $restartDelaySeconds
     }
 }
@@ -336,6 +366,12 @@ function Register-ElevatedBackendTask {
     $backend = Resolve-InstalledBackendInfo
     $userId = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
     Install-ElevatedBackendSupervisor
+    if (-not (Test-Path -LiteralPath $elevatedBackendExePath)) {
+        throw "Elevated backend executable is missing: $elevatedBackendExePath"
+    }
+    if (-not (Test-Path -LiteralPath $elevatedBackendSupervisorPath)) {
+        throw "Elevated backend supervisor is missing: $elevatedBackendSupervisorPath"
+    }
     $action = New-ScheduledTaskAction `
         -Execute "powershell.exe" `
         -Argument "-NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File `"$elevatedBackendSupervisorPath`" -BackendPath `"$elevatedBackendExePath`" -PackageSid `"$($backend.PackageSid)`""
