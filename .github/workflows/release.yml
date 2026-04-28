@@ -18,6 +18,7 @@ jobs:
       Solution_Name: RotationTracker.sln
       Wap_Project_Directory: RotationTracker.Package
       Wap_Project_Path: RotationTracker.Package\RotationTracker.Package.wapproj
+      Installer_Project_Path: RotationTracker.Installer\RotationTracker.Installer.csproj
       Configuration: Release
       Platform: x64
 
@@ -78,6 +79,31 @@ jobs:
             /p:PackageCertificateThumbprint="${{ steps.thumb.outputs.thumbprint }}" `
             /p:PackageCertificatePassword="${{ secrets.Pfx_Key }}"
 
+      - name: Publish native installer
+        shell: pwsh
+        run: |
+          $installerOutput = Join-Path $env:GITHUB_WORKSPACE "native-installer"
+          New-Item -ItemType Directory -Path $installerOutput -Force | Out-Null
+
+          dotnet publish $env:Installer_Project_Path `
+            -c $env:Configuration `
+            -r win-x64 `
+            --self-contained true `
+            -p:Platform=$env:Platform `
+            -p:PublishSingleFile=true `
+            -p:IncludeNativeLibrariesForSelfExtract=true `
+            -o $installerOutput
+
+          if ($LASTEXITCODE -ne 0) {
+            throw "dotnet publish failed with exit code $LASTEXITCODE"
+          }
+
+          $sourceExe = Join-Path $installerOutput "RotationTracker.Installer.exe"
+          Copy-Item -LiteralPath $sourceExe -Destination (Join-Path $installerOutput "install.exe") -Force
+          Copy-Item -LiteralPath $sourceExe -Destination (Join-Path $installerOutput "uninstall.exe") -Force
+          Remove-Item -LiteralPath $sourceExe -Force -ErrorAction SilentlyContinue
+          Remove-Item -LiteralPath (Join-Path $installerOutput "RotationTracker.Installer.pdb") -Force -ErrorAction SilentlyContinue
+
       - name: Stage release assets
         id: stage
         shell: pwsh
@@ -93,14 +119,14 @@ jobs:
 
           $bundleDir = $bundle.Directory.FullName
 
-          # Copy bundle under a stable name so install.bat can always resolve it.
+          # Copy bundle under a stable name so install.exe can always resolve it.
           Copy-Item -Path $bundle.FullName `
                     -Destination (Join-Path $stage "RotationTracker.msixbundle") `
                     -Force
 
           Copy-Item -Path "${{ steps.thumb.outputs.cer_path }}" -Destination $stage -Force
 
-          # Copy x64 framework dependencies that install.bat needs.
+          # Copy x64 framework dependencies that install.exe needs.
           $depsDir = Join-Path $bundleDir "Dependencies\x64"
           if (Test-Path $depsDir) {
             Get-ChildItem -Path $depsDir -File | ForEach-Object {
@@ -108,10 +134,9 @@ jobs:
             }
           }
 
-          Copy-Item -Path "install.bat" -Destination $stage -Force
-          Copy-Item -Path "upgrade.bat" -Destination $stage -Force
-          Copy-Item -Path "uninstall.bat" -Destination $stage -Force
-          Copy-Item -Path "Manage-Install.ps1" -Destination $stage -Force
+          $installerOutput = Join-Path $env:GITHUB_WORKSPACE "native-installer"
+          Copy-Item -Path (Join-Path $installerOutput "install.exe") -Destination $stage -Force
+          Copy-Item -Path (Join-Path $installerOutput "uninstall.exe") -Destination $stage -Force
 
           $backendStage = Join-Path $stage "ElevatedBackend"
           New-Item -ItemType Directory -Path $backendStage -Force | Out-Null

@@ -33,20 +33,20 @@ Arknights: Endfield is required to run with administrator privileges. Rotation T
 
 1. [Download the latest release from GitHub](https://github.com/SinonCute/RotationTracker/releases). Under **Assets**, get the installer zip — for example `RotationTracker-v0.3-beta-installer.zip` — newer releases use a different version in the filename.
 2. Extract everything into one folder
-3. Run `install.bat` as administrator
+3. Run `install.exe` and approve the Windows administrator prompt
 4. Open Xbox Game Bar with `Win + G`
 5. Add **Rotation Tracker**
 
 ### Upgrade
 
 1. [Download the newest release from GitHub](https://github.com/SinonCute/RotationTracker/releases). Under **Assets**, get the installer zip (e.g. `RotationTracker-v0.3-beta-installer.zip`; the `v…` part updates with each release), extract it if needed, then continue in that folder.
-2. Run `upgrade.bat` as administrator
+2. Run `install.exe` again and approve the Windows administrator prompt
 
 Your saved rotations are kept automatically.
 
 ### Uninstall
 
-1. Run `uninstall.bat` as administrator
+1. Run `uninstall.exe` and approve the Windows administrator prompt
 
 Your rotation backup is preserved so you can install again later without losing it.
 
@@ -94,20 +94,20 @@ Arknights: Endfield bắt buộc phải chạy với quyền administrator. Rota
 
 1. [Tải bản phát hành mới nhất từ GitHub](https://github.com/SinonCute/RotationTracker/releases). Trong mục **Assets**, tải file zip cài đặt — ví dụ `RotationTracker-v0.3-beta-installer.zip` — bản mới hơn sẽ có tên phiên bản khác trong tên file.
 2. Giải nén toàn bộ vào cùng một thư mục
-3. Chạy `install.bat` bằng quyền administrator
+3. Chạy `install.exe` và xác nhận hộp thoại administrator của Windows
 4. Mở Xbox Game Bar bằng `Win + G`
 5. Thêm **Rotation Tracker**
 
 ### Nâng cấp
 
 1. [Tải bản phát hành mới nhất từ GitHub](https://github.com/SinonCute/RotationTracker/releases). Trong **Assets**, tải zip cài đặt (ví dụ `RotationTracker-v0.3-beta-installer.zip`; phần `v…` thay đổi theo từng bản), giải nén thư mục đó.
-2. Chạy `upgrade.bat` bằng quyền administrator
+2. Chạy lại `install.exe` và xác nhận hộp thoại administrator của Windows
 
 Rotation đã lưu sẽ được giữ lại tự động.
 
 ### Gỡ cài đặt
 
-1. Chạy `uninstall.bat` bằng quyền administrator
+1. Chạy `uninstall.exe` và xác nhận hộp thoại administrator của Windows
 
 Bản sao lưu rotation vẫn được giữ lại để bạn cài lại sau này mà không bị mất dữ liệu.
 

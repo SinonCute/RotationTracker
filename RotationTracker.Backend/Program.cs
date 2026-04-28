@@ -185,7 +185,6 @@ namespace RotationTracker.Backend
                     var keys = (msg.Keys ?? "").Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                     _poller.SetWatchedKeys(keys);
                     Log($"Watching: {string.Join(",", keys)}");
-                    Log("[Input] Games started \"Run as administrator\" hide global input from this helper (Windows UIPI). Use install.bat or upgrade.bat so the elevated backend task is registered.");
                     _pipe.Send(new ServerPipeMessage { Kind = ServerPipeMessageKinds.Ready });
                     break;
                 case ClientPipeMessageCmds.Stop:

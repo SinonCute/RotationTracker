@@ -5,8 +5,11 @@ obj/
 .vs/
 AppPackages/
 BundleArtifacts/
+artifacts/
 build-output.log
 *.pfx
 signing.pfx
 .local-cert/
+.dotnet-home/
 scripts/Manage-LocalOnly.ps1
+scripts/Publish-Installer.ps1
