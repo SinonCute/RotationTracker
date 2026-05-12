@@ -63,12 +63,6 @@ If you need help or want to contact the author:
 - Discord server: https://discord.gg/be7RgpxjSk
 - Email: `contact@hiencao.me`
 
-### License
-
-This project is licensed under GPL-2.0-only.
-
-License reference: [GNU General Public License version 2](https://opensource.org/license/GPL-2.0)
-
 <a id="tieng-viet"></a>
 
 ## Tiếng Việt
@@ -123,9 +117,3 @@ Nếu bạn cần hỗ trợ hoặc muốn liên hệ tác giả:
 
 - Discord server: https://discord.gg/be7RgpxjSk
 - Email: `contact@hiencao.me`
-
-### Giấy phép
-
-Dự án này được phát hành dưới giấy phép GPL-2.0-only.
-
-Tham chiếu giấy phép: [GNU General Public License version 2](https://opensource.org/license/GPL-2.0)
